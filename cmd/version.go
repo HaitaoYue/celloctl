@@ -14,6 +14,6 @@ var versionCmd = &cobra.Command{
 	Short: "Print the version number of cello client",
 	Long: `Show version number of cello client`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Cello Client v1.0 -- HEAD")
+		fmt.Println("Cello Client v0.1 -- HEAD")
 	},
 }
