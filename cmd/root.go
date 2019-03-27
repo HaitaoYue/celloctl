@@ -16,8 +16,7 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/levigross/grequests"
-	"log"
+	"github.com/celloctl/internal"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -39,37 +38,20 @@ type TokenResponse struct {
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
-	Use:   "cello-client",
-	Short: "Cello client is a tool to manage cello api service",
+	Use:   "celloctl",
+	Short: "Cello ctl is a tool to manage cello api service",
 	Long: `This application can manage all cello api service, to control
 Networks of hyperledger deployment `,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	//	Run: func(cmd *cobra.Command, args []string) { },
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
-		authUrl := fmt.Sprintf("%s/auth/login/", viper.Get("server.url"))
-		fmt.Printf("Pre run url %v\n", authUrl)
-		resp, err := grequests.Post(authUrl, &grequests.RequestOptions{JSON: map[string]string{
-			"username": viper.GetString("server.username"),
-			"password": viper.GetString("server.password"),
-		}})
-		// You can modify the request by passing an optional RequestOptions struct
-
-		if err != nil {
-			log.Fatalln("Unable to make request: ", err)
-		}
-
-		if resp.Ok != true {
-			log.Printf("Get token failed")
-		} else {
-			var token TokenResponse
-			err := resp.JSON(&token)
+		token := viper.GetString("auth.token")
+		if token == "" {
+			err := internal.Login(viper.GetString("server.url"))
 			if err != nil {
 				panic(err)
 			}
-			viper.Set("user.token", token.Token)
-			viper.Set("user.name", token.User.Name)
-			viper.Set("user.email", token.User.Email)
 		}
 	},
 }
@@ -89,7 +71,7 @@ func init() {
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cello.yaml)")
+	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cello/config.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -117,7 +99,7 @@ func initConfig() {
 	viper.AutomaticEnv() // read in environment variables that match
 
 	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
+	if err := viper.ReadInConfig(); err != nil {
+		panic(err)
 	}
 }

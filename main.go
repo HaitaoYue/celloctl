@@ -1,6 +1,6 @@
 package main
 
-import "github.com/cello-client/cmd"
+import "github.com/celloctl/cmd"
 
 func main()  {
 	cmd.Execute()
