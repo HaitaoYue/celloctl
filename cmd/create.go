@@ -32,6 +32,12 @@ var createCmd = &cobra.Command{
 				panic(err)
 			}
 			break
+		case "Organization":
+			err := internal.CreateOrganization(source)
+			if err != nil {
+				panic(err)
+			}
+			break
 		default:
 			break
 		}

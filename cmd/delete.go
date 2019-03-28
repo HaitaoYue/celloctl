@@ -23,6 +23,12 @@ var deleteCmd = &cobra.Command{
 				panic(err)
 			}
 			break
+		case "org", "organization":
+			err := internal.DeleteOrganization(args[1])
+			if err != nil {
+				panic(err)
+			}
+			break
 		default:
 			break
 		}
