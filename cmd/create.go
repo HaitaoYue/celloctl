@@ -38,6 +38,12 @@ var createCmd = &cobra.Command{
 				panic(err)
 			}
 			break
+		case "Node":
+			err := internal.CreateNode(source)
+			if err != nil {
+				panic(err)
+			}
+			break
 		default:
 			break
 		}

@@ -58,6 +58,22 @@ var getCmd = &cobra.Command{
 					t.Render()
 				}
 				break
+			case "node":
+				nodeListResponse, err := internal.ListNodes()
+				if err != nil {
+					panic(err)
+				} else {
+					t := table.NewWriter()
+					t.SetOutputMirror(os.Stdout)
+					t.AppendHeader(table.Row{"#", "Name", "Type", "Network", "Create Time"})
+					for _, value := range nodeListResponse.Nodes {
+						network := fmt.Sprintf("%s-%s", value.NetworkType, value.NetworkVersion)
+						t.AppendRow([]interface{}{value.ID, value.Name, value.Type, network, value.CreateTime})
+					}
+					t.AppendFooter(table.Row{"", "", "", "Total", nodeListResponse.Total})
+					fmt.Println("Node")
+					t.Render()
+				}
 			default:
 				break
 			}

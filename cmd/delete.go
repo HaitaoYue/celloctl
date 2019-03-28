@@ -29,6 +29,11 @@ var deleteCmd = &cobra.Command{
 				panic(err)
 			}
 			break
+		case "node", "Node":
+			err := internal.DeleteNode(args[1])
+			if err != nil {
+				panic(err)
+			}
 		default:
 			break
 		}
