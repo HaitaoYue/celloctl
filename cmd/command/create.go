@@ -1,8 +1,13 @@
+/*
+Copyright IBM Corp. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0
+*/
 package cmd
 
 import (
-	"github.com/celloctl/internal"
-	"github.com/celloctl/model"
+	"github.com/HaitaoYue/celloctl/cmd/internal"
+	"github.com/HaitaoYue/celloctl/cmd/model"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"

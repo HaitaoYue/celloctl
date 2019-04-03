@@ -1,8 +1,13 @@
+/*
+Copyright IBM Corp. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0
+*/
 package cmd
 
 import (
 	"fmt"
-	"github.com/celloctl/internal"
+	"github.com/HaitaoYue/celloctl/cmd/internal"
 	"github.com/jedib0t/go-pretty/table"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -42,7 +47,7 @@ var getCmd = &cobra.Command{
 					t.Render()
 				}
 				break
-			case "organization":
+			case "organization", "org":
 				organizationListResponse, err := internal.ListOrganization()
 				if err != nil {
 					panic(err)

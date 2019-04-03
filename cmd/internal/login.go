@@ -1,9 +1,14 @@
+/*
+Copyright IBM Corp. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0
+*/
 package internal
 
 import (
 	"errors"
 	"fmt"
-	"github.com/celloctl/model"
+	"github.com/HaitaoYue/celloctl/cmd/model"
 	"github.com/levigross/grequests"
 	"github.com/spf13/viper"
 	"log"

@@ -1,8 +1,13 @@
+/*
+Copyright IBM Corp. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0
+*/
 package cmd
 
 import (
 	"fmt"
-	"github.com/celloctl/internal"
+	"github.com/HaitaoYue/celloctl/cmd/internal"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
